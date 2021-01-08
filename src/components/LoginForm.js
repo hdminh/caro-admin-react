@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {ACCESS_TOKEN_NAME} from '../constants/apiContants';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -9,32 +9,34 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {useForm } from 'react-hook-form';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { login } from '../utils/api';
 import { withRouter } from 'react-router-dom';
 
 function LoginForm(props) {
 
     const {register, handleSubmit } = useForm();
+    const [loading, setLoading] = useState(false);
 
     const handleSubmitCheck = (e) => {
-        console.log(e)
-      
+      setLoading(true)
         login(e.username, e.password).then((response) => {
-          console.log(response)
-                if(response.status === 200){
+              console.log(response)
+              setLoading(false)          
+                if(response.status < 400){
                     localStorage.setItem(ACCESS_TOKEN_NAME, response.data.token);
                     redirectToHome();
                 }
             })
             .catch((error) => {
+              setLoading(false)
               props.setError(error.message)
-              
             });
     }
     const redirectToHome = () => {
         props.history.push('/');
         props.setError(null)
-        props.setTitle("Home")
         props.setAuth(true);
     }
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +45,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
   },
   avatar: {
     margin: theme.spacing(1),
@@ -60,6 +66,11 @@ const classes = useStyles();
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      {loading && ( 
+      <Backdrop className={classes.backdrop} open={true}>
+          <CircularProgress color="inherit" />
+      </Backdrop> 
+      )}
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />

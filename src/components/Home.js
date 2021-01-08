@@ -1,21 +1,20 @@
 import React,{ useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import { ACCESS_TOKEN_NAME } from '../constants/apiContants';
+// import { ACCESS_TOKEN_NAME } from '../constants/apiContants';
 
 function Home(props) {
 
     useEffect(() => {
-        if (!localStorage.getItem(ACCESS_TOKEN_NAME)) redirectToLogin();
+        // if (!localStorage.getItem(ACCESS_TOKEN_NAME)) redirectToLogin();
         
     })
-    function redirectToLogin() {
-    props.history.push('/login');
-    }
+    // function redirectToLogin() {
+    // props.history.push('/login');
+    // }
   return (
-    <div className="App">
-      Dashboard
+    <div className="Home">
     </div>
   );
 }
 
-export default withRouter(Home);
+export default withRouter(Home);  
