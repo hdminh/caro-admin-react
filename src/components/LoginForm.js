@@ -18,19 +18,22 @@ function LoginForm(props) {
 
     const {register, handleSubmit } = useForm();
     const [loading, setLoading] = useState(false);
+    const wrapper = React.createRef();
 
     const handleSubmitCheck = (e) => {
       setLoading(true)
         login(e.username, e.password).then((response) => {
-              console.log(response)
               setLoading(false)          
                 if(response.status < 400){
-                    localStorage.setItem(ACCESS_TOKEN_NAME, response.data.token);
+                  console.log(response.data.datalogin.token)
+
+                    localStorage.setItem(ACCESS_TOKEN_NAME, response.data.datalogin.token);
                     redirectToHome();
                 }
             })
             .catch((error) => {
               setLoading(false)
+              console.log(error)
               props.setError(error.message)
             });
     }
@@ -64,7 +67,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 const classes = useStyles();
   return (
-    <Container component="main" maxWidth="xs">
+      <div ref={wrapper}>
+      <Container component="main" maxWidth="xs">
       <CssBaseline />
       {loading && ( 
       <Backdrop className={classes.backdrop} open={true}>
@@ -116,8 +120,8 @@ const classes = useStyles();
       
         </form>
       </div>
-      
     </Container>
+    </div>
   );
         
 }

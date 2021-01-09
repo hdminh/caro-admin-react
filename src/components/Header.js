@@ -30,22 +30,21 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
+    transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
   appBarShift: {
-    marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   menuButton: {
-    marginRight: 36,
+    marginRight: theme.spacing(2),
   },
   hide: {
     display: 'none',
@@ -53,25 +52,33 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    whiteSpace: 'nowrap',
   },
-  drawerOpen: {
+  drawerPaper: {
     width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
   },
-  drawerClose: {
-    transition: theme.transitions.create('width', {
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    overflowX: 'hidden',
-    width: theme.spacing(7) + 1,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9) + 1,
-    },
+    marginLeft: -drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
   },
   title: {
     flexGrow: 1,
@@ -83,18 +90,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
+  }
 }));
-
 
 function Header(props) {
 
   useEffect(() => {
-    if (!localStorage.getItem(ACCESS_TOKEN_NAME)) props.setAuth(true);  
+    if (!localStorage.getItem(ACCESS_TOKEN_NAME)) props.setAuth(false);  
   })
 
     const [open, setOpen] = React.useState(false);
@@ -116,7 +118,14 @@ function Header(props) {
     const handleDrawerOpen = () => {
       setOpen(true);
     };
-  
+
+    const handleClickUser = (() => {
+      props.history.push('/user')
+    })
+
+    const handleClickMatch = (() => {
+      props.history.push('/match')
+    })
 
     const handleLogout = () => {
         localStorage.removeItem(ACCESS_TOKEN_NAME)
@@ -137,19 +146,18 @@ function Header(props) {
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
-      >
+        >
         <Toolbar>
-        <IconButton
+          <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            className={clsx(classes.menuButton, {
-              [classes.hide]: open,
-            })}
+            className={clsx(classes.menuButton, open && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
+        
           <Typography variant="h6" className={classes.title}>
               {titleApp}
           </Typography>
@@ -182,17 +190,13 @@ function Header(props) {
               </Menu>
         </Toolbar>
       </AppBar>
-          <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })}
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="left"
+        open={open}
         classes={{
-          paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          }),
+          paper: classes.drawerPaper,
         }}
       >
         <div className={classes.toolbar}>
@@ -202,13 +206,13 @@ function Header(props) {
         </div>
         <Divider />
         <List>
-            <ListItem button key={'User'} onClick={handleDrawerClose}>
+            <ListItem button key={'user'}>
               <ListItemIcon><InboxIcon /> </ListItemIcon>
-              <ListItemText primary={'User'} />
+              <ListItemText primary={'User'} onClick={handleClickUser}/>
             </ListItem>
-            <ListItem button key={'Match'} onClick={handleDrawerClose}>
+            <ListItem button key={'match'}>
               <ListItemIcon><MailIcon /> </ListItemIcon>
-              <ListItemText primary={'Match'} />
+              <ListItemText primary={'Match'} onClick={handleClickMatch}/>
             </ListItem>
         </List>
         <Divider />
