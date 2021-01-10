@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import Button from '@material-ui/core/Button';
@@ -6,7 +6,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { block, unblock } from '../utils/api';
+import UserInfoDialog from './UserInfoDialog';
+import InputLabel from '@material-ui/core/InputLabel';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -29,30 +30,20 @@ const StyledTableRow = withStyles((theme) => ({
 const useStyles = makeStyles({
   table: {
     width: '100%'
-  },
+  }
 });
 
 export default function UserTable(props) {
     const classes = useStyles();
-
-    const handleClick = ((row) => {
-      let promise;
-      if (row.status) {
-        promise = block(row._id)
-      }
-      else {
-        promise = unblock(row._id)
-      }
-      promise.then(response => {
-        if (response.status < 400){
-          console.log(response)
-        }
-      }).catch(error => {
-        props.setError(error.message)
-      })
-    })  
+    const [dialog, setDialog] = useState(false)
+    const [row, setRow] = useState(null)
+    const handleShowDialog = (row) => {
+        setDialog(true);
+        setRow(row);
+    }
 
   return (
+      <div>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
@@ -61,7 +52,8 @@ export default function UserTable(props) {
             <StyledTableCell>Total Match</StyledTableCell>
             <StyledTableCell>Cup</StyledTableCell>
             <StyledTableCell>Win</StyledTableCell>
-            <StyledTableCell align="right"></StyledTableCell>
+            <StyledTableCell align="right">Status</StyledTableCell>
+            <StyledTableCell align="right">Detail Info</StyledTableCell>
 
           </TableRow>
         </TableHead>
@@ -75,11 +67,36 @@ export default function UserTable(props) {
               <StyledTableCell >{row.cup}</StyledTableCell>
               <StyledTableCell >{row.win}</StyledTableCell>
               <StyledTableCell align="right">
-                      { row.status? 'Active' : 'Blocked' }
-                </StyledTableCell>
+              {  row.status? 
+                   <InputLabel
+                   id="outlined-error"
+                   label="Error"
+                   children={'Activated'}
+                   variant="outlined"
+                 />:
+                  <InputLabel
+                    error
+                    id="outlined-error"
+                    label="Error"
+                    children={'Blocked'}
+                    variant="outlined"
+                  />
+              }
+              </StyledTableCell> 
+              <StyledTableCell align="right">
+                  <Button onClick={() => handleShowDialog(row)}> View </Button>
+              </StyledTableCell>
+             
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
+      <UserInfoDialog 
+      open={dialog} 
+      data={row} 
+      setOpen={setDialog} 
+      setError={props.setError}/>
+      </div>
+      
   );
 }

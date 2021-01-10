@@ -2,8 +2,10 @@ import React,{ useEffect, useState } from 'react';
 import { getAllMatch } from '../utils/api';
 import { makeStyles } from '@material-ui/core/styles';
 import MatchTable from './MatchTable';    
-import TextField from '@material-ui/core/TextField';
-
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import TableContainer from '@material-ui/core/TableContainer';
+import Paper from '@material-ui/core/Paper';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,37 +20,35 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Match(props) {
     const classes = useStyles();
+    const [loading, setLoading] = useState(false);
     const [data, setData] = useState(null);
-    const [inputText, setInputText] = useState(null)
     useEffect(() => {
-        getUserList()
-    })
+        getMatchList()
+    }, [])
 
-    const handleChange = (event) => {
-        setInputText(event.target.value);
-      }
-
-    const getUserList = (() => {
+    const getMatchList = (() => {
+        setLoading(true)
         getAllMatch().then(response => {
+            setLoading(false)
             if (response.status < 400) {
+                console.log(response.data)
                 setData(response.data)
             }
         }).catch((error) => {
             props.setError(error.message)
         })
     })
+
   return (
     <div>
-        <form className={classes.search} noValidate autoComplete="off" >
-            <TextField className={classes.input} 
-            id="outlined-basic" 
-            label="Search" 
-            variant="outlined" 
-            value={inputText} 
-            onChange={handleChange}
-        />
-        </form>
+    <TableContainer component={Paper}>
+        {loading && ( 
+            <Backdrop className={classes.backdrop} open={true}>
+                <CircularProgress color="inherit" />
+            </Backdrop> 
+            )}
         <MatchTable setError={props.setError()} data={data} />
+        </TableContainer>
     </div>
   );
 }

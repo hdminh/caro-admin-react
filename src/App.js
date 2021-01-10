@@ -16,7 +16,7 @@ import {
 function App() {
   const [title, setTitle] = useState("Caro Online Admin");
   const [auth, setAuth] = useState(true);
-  const [error, setError] = useState(null);
+  const [alert, setAlert] = useState(null);
 
   return (
     <Router>
@@ -28,25 +28,25 @@ function App() {
       setAuth={setAuth} 
       setTitle={setTitle} />
         <div className="container d-flex align-items-center flex-column">
-          <AlertDialog error={error} setError={setError} />
+          <AlertDialog alert={alert} setAlert={setAlert} />
           <Switch>
             <Route path="/login" exact>
               <LoginForm 
               setAuth={setAuth} 
               setTitle={setTitle} 
-              setError={setError} />
+              setError={setAlert} />
             </Route>
             <PrivateRoute path="/" exact>
               <Home/>
             </PrivateRoute>
             <PrivateRoute path="/user" exact>
               <User 
-              setError={setError} 
+              setError={setAlert} 
               setTitle={setTitle} />
             </PrivateRoute>
             <PrivateRoute path="/match" exact>
               <Match 
-              setError={setError} 
+              setError={setAlert} 
               setTitle={setTitle} />
             </PrivateRoute>
           </Switch>
