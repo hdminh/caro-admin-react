@@ -39,7 +39,7 @@ export const search = async (key) => {
   return res;
 };
 
-export const getUserById = async (id) => {
+export const getUser = async (id) => {
     const url = API_BASE_URL + '/getuser/' + id;
     const token = localStorage.getItem(ACCESS_TOKEN_NAME)
     const res = await axios.get(url, { 

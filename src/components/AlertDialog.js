@@ -9,7 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 export default function AlertDialog(props) {
 
   const handleClose = () => {
-    props.setError(null)
+    props.setAlert(null)
   };
 
   return (
@@ -18,13 +18,14 @@ export default function AlertDialog(props) {
         <Dialog
         open={true}
         onClose={handleClose}
+        onBlur={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Error"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Thông báo"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            {props.error}
+            {props.alert}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
