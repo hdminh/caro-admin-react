@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Home from './components/Home';
 import LoginForm from './components/LoginForm';
 import User from './components/User';
+import Match from './components/Match'; 
 import PrivateRoute from './utils/PrivateRoute';
 import AlertDialog from './components/AlertDialog';
 import {
@@ -44,7 +45,7 @@ function App() {
               setTitle={setTitle} />
             </PrivateRoute>
             <PrivateRoute path="/match" exact>
-              <User 
+              <Match 
               setError={setError} 
               setTitle={setTitle} />
             </PrivateRoute>

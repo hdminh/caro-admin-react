@@ -28,7 +28,8 @@ export const getAllUser = async () => {
 };
 
 export const search = async (key) => {
-    const url = API_BASE_URL + '/search/' + key;
+    let searchkey = key ? key : "";
+    const url = API_BASE_URL + '/search/' + search;
     const token = localStorage.getItem(ACCESS_TOKEN_NAME)
     const res = await axios.get(url, { 
         headers : {
@@ -51,7 +52,7 @@ export const getUserById = async (id) => {
   return res;
 };
 
-export const listMatch = async () => {
+export const getAllMatch = async () => {
     const url = API_BASE_URL + '/listmatch';
     const token = localStorage.getItem(ACCESS_TOKEN_NAME)
     const res = await axios.get(url, { 
@@ -78,11 +79,11 @@ export const mathHistory = async (id) => {
 
 export const block = async (id) => {
     const url = API_BASE_URL + '/blockuser';
-    const data = {
-        id: id
-    }
+    // const data = {
+    //     id: id
+    // }
     const token = localStorage.getItem(ACCESS_TOKEN_NAME)
-    const res = await axios.put(url, data, { 
+    const res = await axios.put(url, {id: id}, { 
         headers : {
             'Content-Type': 'application/json',
             'auth-token': String(token)

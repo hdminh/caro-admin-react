@@ -1,12 +1,13 @@
 import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { block, unblock } from '../utils/api';
+import Paper from '@material-ui/core/Paper';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -28,31 +29,16 @@ const StyledTableRow = withStyles((theme) => ({
 
 const useStyles = makeStyles({
   table: {
-    width: '100%'
+    width: '100%',
+    marginTop: '30px'
   },
 });
 
-export default function UserTable(props) {
+export default function MatchTable(props) {
     const classes = useStyles();
 
-    const handleClick = ((row) => {
-      let promise;
-      if (row.status) {
-        promise = block(row._id)
-      }
-      else {
-        promise = unblock(row._id)
-      }
-      promise.then(response => {
-        if (response.status < 400){
-          console.log(response)
-        }
-      }).catch(error => {
-        props.setError(error.message)
-      })
-    })  
-
   return (
+    <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
@@ -73,13 +59,13 @@ export default function UserTable(props) {
               <StyledTableCell >{row.gender === 0? 'Nam' : 'Nu'}</StyledTableCell>
               <StyledTableCell >{row.totalmatch}</StyledTableCell>
               <StyledTableCell >{row.cup}</StyledTableCell>
-              <StyledTableCell >{row.win}</StyledTableCell>
-              <StyledTableCell align="right">
-                      { row.status? 'Active' : 'Blocked' }
+              <StyledTableCell >{row.win}</StyledTableCell> 
+              <StyledTableCell align="right">   
                 </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
+    </TableContainer>
   );
 }
