@@ -28,8 +28,7 @@ export const getAllUser = async () => {
 };
 
 export const search = async (key) => {
-    let searchkey = key ? key : "";
-    const url = API_BASE_URL + '/search/' + search;
+    const url = API_BASE_URL + '/search/' + key;
     const token = localStorage.getItem(ACCESS_TOKEN_NAME)
     const res = await axios.get(url, { 
         headers : {
@@ -79,9 +78,6 @@ export const mathHistory = async (id) => {
 
 export const block = async (id) => {
     const url = API_BASE_URL + '/blockuser';
-    // const data = {
-    //     id: id
-    // }
     const token = localStorage.getItem(ACCESS_TOKEN_NAME)
     const res = await axios.put(url, {id: id}, { 
         headers : {

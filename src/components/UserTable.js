@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { block, unblock } from '../utils/api';
+import UserInfoDialog from './UserInfoDialog';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -53,7 +54,8 @@ export default function UserTable(props) {
     })  
 
   return (
-      <Table className={classes.table} aria-label="customized table">
+    <div>
+ <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Username</StyledTableCell>
@@ -61,6 +63,7 @@ export default function UserTable(props) {
             <StyledTableCell>Total Match</StyledTableCell>
             <StyledTableCell>Cup</StyledTableCell>
             <StyledTableCell>Win</StyledTableCell>
+            <StyledTableCell>Detail</StyledTableCell>
             <StyledTableCell align="right"></StyledTableCell>
 
           </TableRow>
@@ -74,6 +77,11 @@ export default function UserTable(props) {
               <StyledTableCell >{row.totalmatch}</StyledTableCell>
               <StyledTableCell >{row.cup}</StyledTableCell>
               <StyledTableCell >{row.win}</StyledTableCell>
+              <StyledTableCell> 
+                <Button onClick={handleClick}>
+                  View
+                </Button>
+              </StyledTableCell>
               <StyledTableCell align="right">
                       { row.status? 'Active' : 'Blocked' }
                 </StyledTableCell>
@@ -81,5 +89,7 @@ export default function UserTable(props) {
           ))}
         </TableBody>
       </Table>
+      <UserInfoDialog />
+    </div>   
   );
 }

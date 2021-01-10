@@ -35,7 +35,7 @@ export default function UserInfo(props) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {'Name: ' + props.data.firstname}
+            {'Name:'}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

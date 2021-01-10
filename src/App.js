@@ -7,6 +7,7 @@ import User from './components/User';
 import Match from './components/Match'; 
 import PrivateRoute from './utils/PrivateRoute';
 import AlertDialog from './components/AlertDialog';
+import NotFound from './components/NotFound';
 import {
   BrowserRouter as Router,
   Switch,
@@ -49,6 +50,7 @@ function App() {
               setError={setError} 
               setTitle={setTitle} />
             </PrivateRoute>
+            <Route path="" component={NotFound} />
           </Switch>
         </div>
     </div>
