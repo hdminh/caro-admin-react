@@ -49,6 +49,18 @@ function MatchHistory(props) {
     setHistory(squaresList);
   };
 
+  const handleResult = () => {
+    setCurrentPos(clickHistory.length);
+    let clicks = clickHistory.slice(0, currentPos);
+    let squaresList = Array(400).fill(null);
+    let index = 0;
+    clicks.forEach((click) => {
+      squaresList[click] = index % 2 == 0 ? "X" : "O";
+      index = index + 1;
+    });
+    setHistory(squaresList);
+  }
+
   const mapHistory = async () => {
     setClickHistory([])
     getMatchHistory(id)
@@ -86,6 +98,9 @@ function MatchHistory(props) {
           </Grid>
           <Grid item>
             <Button onClick={handleNextMove}>Nước đi kế tiếp</Button>
+          </Grid>
+          <Grid item>
+            <Button onClick={handleResult}>Kết quả</Button>
           </Grid>
         </Grid>
 
