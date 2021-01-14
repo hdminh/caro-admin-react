@@ -27,7 +27,7 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    flexGrow: 1,
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -126,7 +126,7 @@ function Header(props) {
     const handleClickMatch = (() => {
       props.history.push('/match')
     })
-
+    
     const handleLogout = () => {
         localStorage.removeItem(ACCESS_TOKEN_NAME)
         props.history.push('/login')
@@ -141,7 +141,7 @@ function Header(props) {
       {props.auth && (
         <div> 
         <AppBar
-        position="fixed"
+        position="static"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
@@ -213,6 +213,7 @@ function Header(props) {
               <ListItemIcon><MailIcon /> </ListItemIcon>
               <ListItemText primary={'Match'} onClick={handleClickMatch}/>
             </ListItem>
+
         </List>
         <Divider />
       </Drawer>

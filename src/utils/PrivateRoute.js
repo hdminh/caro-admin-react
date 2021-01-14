@@ -9,8 +9,7 @@ function PrivateRoute({ children, ...rest }) {
           localStorage.getItem(ACCESS_TOKEN_NAME) ? (
             children
           ) : (
-            <Redirect
-              to={"/login"}
+            <Redirect to={"/login"}
             />
           )
         }
