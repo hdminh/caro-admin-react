@@ -10,7 +10,7 @@ import TableRow from "@material-ui/core/TableRow";
 import UserInfoDialog from "./UserInfoDialog";
 import InputLabel from "@material-ui/core/InputLabel";
 import MatchTable from "./MatchTable";
-import { mathHistory } from "../utils/api";
+import { matchHistory } from "../utils/api";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -49,7 +49,7 @@ export default function UserTable(props) {
 
   const handleShowHistory = (row) => {
     console.log(row._id)
-    mathHistory(row._id)
+    matchHistory(row._id)
       .then((res) => {
         setData(res.data);
         setHistory(true);

@@ -63,7 +63,7 @@ export const getAllMatch = async () => {
   return res;
 };
 
-export const mathHistory = async (id) => {
+export const matchHistory = async (id) => {
     const url = API_BASE_URL + '/admin/listmatchuser/' + id;
     const token = localStorage.getItem(ACCESS_TOKEN_NAME)
     const res = await axios.get(url, { 

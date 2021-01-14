@@ -54,6 +54,8 @@ export default function MatchTable(props) {
               <StyledTableCell>ID</StyledTableCell>
               <StyledTableCell>Winner</StyledTableCell>
               <StyledTableCell>Status</StyledTableCell>
+              <StyledTableCell>Số nước đi</StyledTableCell>
+              <StyledTableCell>Tin nhắn</StyledTableCell>
               <StyledTableCell align="right">History</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -78,6 +80,12 @@ export default function MatchTable(props) {
                         ? "Playing"
                         : "Finished"
                       : "Waiting"}
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    {row.history.length}
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    {row.chat.length}
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <Button onClick={() => handleClick(row)}> View </Button>
