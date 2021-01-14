@@ -12,7 +12,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-
+import MatchHistory from './components/MatchHistory';
 const useStyles = makeStyles((theme) => ({
   toolbar: {
     display: "flex",
@@ -77,6 +77,9 @@ function App(props) {
                 setLoading={setLoading}
               />
             </PrivateRoute>
+            <PrivateRoute path="/detail/:id">
+                <MatchHistory setError={setAlert} setLoading={setLoading} />
+              </PrivateRoute>
             <Route path="" component={NotFound} />
           </Switch>
         </div>

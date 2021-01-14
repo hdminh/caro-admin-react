@@ -39,7 +39,6 @@ export default function Match(props) {
   return (
     <div>
     <TableContainer component={Paper}>
-
         <MatchTable setError={props.setError()} data={data} />
         </TableContainer>
     </div>

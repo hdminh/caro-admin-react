@@ -4,11 +4,10 @@ import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import Board from "../components/Board";
+import Board from "./Board";
 import Grid from "@material-ui/core/Grid";
-import { getMatchInfo } from "../api/matchService";
 import ChatHistory from "../components/ChatHistory";
-
+import { getMatchHistory } from "../utils/api";
 const useStyles = makeStyles((theme) => ({
   input: {
     width: "50%",
@@ -59,7 +58,7 @@ function MatchHistory(props) {
   };
 
   const mapHistory = () => {
-    getMatchInfo(id)
+    getMatchHistory(id)
       .then((res) => {
         console.log(res.data);
         res.data.history.forEach((his) => {
