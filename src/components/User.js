@@ -56,16 +56,18 @@ export default function User(props) {
   };
 
   const handleSubmit = () => {
-    search(inputText)
-      .then((res) => {
-        console.log("search", res.data);
+    if (inputText) {
+      search(inputText)
+        .then((res) => {
+          console.log("search", res.data);
 
-        setData(res.data);
-        console.log("data search", data);
-      })
-      .catch((error) => {
-        props.setError(error.message);
-      });
+          setData(res.data);
+          console.log("data search", data);
+        })
+        .catch((error) => {
+          props.setError(error.message);
+        });
+    }
   };
 
   return (
