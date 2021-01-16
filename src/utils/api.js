@@ -100,7 +100,7 @@ export const block = async (id) => {
 
 
 export const unblock = async (id) => {
-    const url = API_BASE_URL + '/unblockuser';
+    const url = API_BASE_URL + '/admin/unblockuser';
     const data = {
         id: id
     }
