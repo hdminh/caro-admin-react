@@ -6,7 +6,7 @@ import LoginForm from "./components/LoginForm";
 import User from "./components/User";
 import Match from "./components/Match";
 import PrivateRoute from "./utils/PrivateRoute";
-import AlertDialog from "./components/AlertDialog";
+import Alert from "@material-ui/lab/Alert";
 import NotFound from "./components/NotFound";
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
