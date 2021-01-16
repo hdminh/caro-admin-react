@@ -64,7 +64,7 @@ export default function UserTable(props) {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Username</StyledTableCell>
+            <StyledTableCell>Name</StyledTableCell>
             <StyledTableCell>Gender</StyledTableCell>
             <StyledTableCell>Total Match</StyledTableCell>
             <StyledTableCell>Cup</StyledTableCell>
@@ -79,7 +79,7 @@ export default function UserTable(props) {
           {props.data &&
             props.data.map((row) => (
               <StyledTableRow key={row.username}>
-                <StyledTableCell align="left"> {row.username} </StyledTableCell>
+                <StyledTableCell align="left"> {row.lastname} {row.firstname} </StyledTableCell>
                 <StyledTableCell>
                   {row.gender === 0 ? "Nam" : "Nữ"}
                 </StyledTableCell>
