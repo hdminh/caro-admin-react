@@ -38,8 +38,13 @@ function MatchHistory(props) {
   };
 
   const handlePrevMove = () => {
-    if (currentPos > 0) setCurrentPos(currentPos - 1);
-    let clicks = clickHistory.slice(0, currentPos);
+    let clicks;
+    if (currentPos > 0) {
+      setCurrentPos(currentPos - 1);
+      clicks = clickHistory.slice(0, currentPos - 1);
+    } else {
+      clicks = clickHistory.slice(0, currentPos);
+    }
     let squaresList = Array(400).fill(null);
     let index = 0;
     clicks.forEach((click) => {
