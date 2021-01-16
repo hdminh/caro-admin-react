@@ -26,13 +26,14 @@ export default function Match(props) {
     const getMatchList = (() => {
         props.setLoading(true)
         getAllMatch().then(response => {
+            props.setError(null)
             props.setLoading(false)
             if (response.status < 400) {
                 console.log(response.data)
                 setData(response.data)
             }
         }).catch((error) => {
-            props.setError(error.message)
+            props.setError("Lấy danh sách trận không thành công")
         })
     })
 

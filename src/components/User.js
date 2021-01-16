@@ -42,12 +42,13 @@ export default function User(props) {
         setLoading(false);
         if (response.status < 400) {
           console.log("data", response.data);
+          props.setError(null)
           setData(response.data);
         }
       })
       .catch((error) => {
         console.log("error", error);
-        props.setError(error.message);
+        props.setError("Lấy danh sách người dùng không thành công");
       });
   };
 
@@ -62,10 +63,11 @@ export default function User(props) {
           console.log("search", res.data);
 
           setData(res.data);
+          props.setError(null)
           console.log("data search", data);
         })
         .catch((error) => {
-          props.setError(error.message);
+          props.setError("Tìm kiếm không thành công");
         });
     }
   };

@@ -77,9 +77,10 @@ function MatchHistory(props) {
         });
         setMessages(res.data.chat);
         setRoom("Lịch sử chat");
+        props.setError(null)
       })
       .catch((err) => {
-        props.setError(err.message)
+        props.setError("Load lịch sử trận không thành công")
       });
   };
 

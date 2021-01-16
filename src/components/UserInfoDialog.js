@@ -37,12 +37,12 @@ export default function UserInfoDialog(props) {
     promise.then(response => {
       if (response.status < 400){
         console.log(response)
-        props.setError(text + ' Success!!!')
+        props.setError(null)
         window.location.reload();
         
       }
     }).catch(error => {
-      props.setError(error.message)
+      props.setError(text + " thất bại")
     })
   })  
 

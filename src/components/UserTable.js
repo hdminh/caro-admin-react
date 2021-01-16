@@ -52,10 +52,11 @@ export default function UserTable(props) {
     matchHistory(row._id)
       .then((res) => {
         setData(res.data);
+        props.setError(null)
         setHistory(true);
       })
       .catch((err) => {
-        props.setError(err.message);
+        props.setError("Lấy lịch sử người chơi không thành công");
       });
   };
 

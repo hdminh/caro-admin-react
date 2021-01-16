@@ -45,7 +45,7 @@ function App(props) {
           setTitle={setTitle}
         />
         <div className="container d-flex align-items-center flex-column">
-          <AlertDialog alert={alert} setAlert={setAlert} />
+        {alert && <Alert severity="error">{alert}</Alert>}
           {loading && (
             <Backdrop className={classes.backdrop} open={true}>
               <CircularProgress color="inherit" />
